@@ -1,0 +1,84 @@
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-outline-primary mt-2" data-bs-toggle="modal" data-bs-target="#companyModal" (click)="openModalForAdd()">
+        <i class="bi bi-building-add"></i> &nbsp;&nbsp; Add Company Detail
+      </button>
+    </div>
+  
+    <table class="table table-bordered mt-2">
+      <thead class="thead-dark">
+        <tr>
+          <th>employ ID</th>
+          <th>employ Name</th>
+          <th>employ Address</th>
+          <th>employ Email</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of employObj; track item) {
+          <tr>
+            <td>{{ item.empId }}</td>
+            <td>{{ item.empName }}</td>
+            <td>{{ item.empAddress }}</td>
+            <td>{{ item.empMail }}</td>
+            <td>
+              <button class="btn btn-outline-warning btn-sm me-2" data-bs-toggle="modal" data-bs-target="#companyModal" (click)="update(item)">
+                <i class="bi bi-pencil-square"></i>
+              </button>
+              <button class="btn btn-outline-danger btn-sm" (click)="deleteEmploy(item.empId)">
+                <i class="bi bi-trash"></i>
+              </button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  
+  <!-- Single Bootstrap Modal for Add & Update -->
+  <div class="modal fade" id="companyModal" tabindex="-1" aria-labelledby="companyModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="companyModalLabel">{{ isEditMode ? 'Update Company' : 'Add Company' }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="companyId" class="form-label">employ ID</label>
+              <input type="text" class="form-control" id="companyId" [(ngModel)]="empobj.empId" name="companyId" [readonly]="isEditMode">
+            </div>
+            <div class="mb-3">
+              <label for="companyName" class="form-label">employ Name</label>
+              <input type="text" class="form-control" id="companyName" [(ngModel)]="empobj.empName" name="companyName">
+            </div>
+            <div class="mb-3">
+              <label for="companyAddress" class="form-label">employ Address</label>
+              <input type="text" class="form-control" id="companyAddress" [(ngModel)]="empobj.empAddress" name="companyAddress">
+            </div>
+            <div class="mb-3">
+              <label for="companyEmail" class="form-label">employ Email</label>
+              <input type="email" class="form-control" id="companyEmail" [(ngModel)]="empobj.empMail" name="companyEmail">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          @if (isEditMode) {
+            <button type="button" class="btn btn-primary" (click)="Update(empobj.empId,empobj)" data-bs-dismiss="modal">
+                Update
+              </button>
+          }@else {
+            <button type="button" class="btn btn-primary" (click)="AddEmploy(empobj)" data-bs-dismiss="modal">
+             Save
+              </button>
+          }
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  
