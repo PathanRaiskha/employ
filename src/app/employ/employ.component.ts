@@ -10,6 +10,8 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './employ.component.css'
 })
 export class EmployComponent {
+
+  abc:number=0;
   
   employObj: any[] = []; // List of companies
   empobj: any = {}; // Object to store form data
@@ -20,6 +22,7 @@ export class EmployComponent {
     companyAdrress:"",
     companyMail:""
   }
+  
 
 
   http=inject(HttpClient)
